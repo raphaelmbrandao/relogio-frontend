@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>[iS] Teste Front-end - Raphael Brandão</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="functions.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<!-- Título da página -->
+		<h1>Sistema de Gestão Empresarial</h1>
+		
+		<!-- Conteúdo oculto abaixo do relógio -->
+		<div class="clock-hidden">
+			<span>
+				Clique no botão abaixo para exibir o relógio.
+			</span>
+		</div>
+
+		<!-- Relógio marcação -->
+		<div class="clock-content">
+			<div class="clock">
+				<!-- Engrenagem / Ponteiros -->
+				<div class="engine">
+					<div class="mid"></div>
+					<div class="sec"></div>
+					<div class="min"></div>
+					<div class="hour"></div>
+				</div>
+
+				<!-- Números de fundo -->
+				<div class="numbers">
+					<i class="num num-00">12</i>
+					<i class="num num-03">18</i>
+					<i class="num num-06">24</i>
+					<i class="num num-09">06</i>
+
+					<div class="subnumbers1">
+						<i class="num num-00">14</i>
+						<i class="num num-03">20</i>
+						<i class="num num-06">02</i>
+						<i class="num num-09">08</i>
+					</div>
+					<div class="subnumbers2">
+						<i class="num num-00">16</i>
+						<i class="num num-03">22</i>
+						<i class="num num-06">04</i>
+						<i class="num num-09">10</i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br />
+		<!-- Botão esconder/mostrar relógio -->
+		<button class="button">Esconder Relógio</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+// VARIÁVEIS
+$font-default: Helvetica Neue, sans-serif;
+$color-accent: #63cac4;
+$color-base: #262626;
+$color-text: rgba(255,255,255,0.9);
+$default-space: 30px;
+$small-space: 20px;
+
+// MIXINS
+@mixin transition($propriedade, $tempo, $metodo, $delay){
+    -webkit-transition: $propriedade $tempo $metodo $delay;
+    -moz-transition: $propriedade $tempo $metodo $delay;
+    -o-transition: $propriedade $tempo $metodo $delay;
+    transition: $propriedade $tempo $metodo $delay;
+}
+@mixin transform($valor) {
+    -webkit-transform: $valor;
+    -moz-transform: $valor;
+    -ms-transform: $valor;
+    -o-transform: $valor;
+    transform: $valor;
+}
+@mixin transform-origin($valor) {
+    -webkit-transform-origin: $valor;
+    -ms-transform-origin: $valor;
+    transform-origin: $valor;
+}
+@mixin transform-style($valor) {
+    -webkit-transform-style: $valor;
+    transform-style: $valor;
+}
+@mixin border-radius($valor) {
+    -webkit-border-radius: $valor;
+    -moz-border-radius: $valor;
+    border-radius: $valor;
+}
+@mixin box-shadow($valor) {
+    -webkit-box-shadow: $valor;
+    -moz-box-shadow: $valor;
+    box-shadow: $valor;
+}
+@mixin opacity($valor) {
+    -moz-opacity: $valor;
+    opacity: $valor;
+}
+
+// GLOBAL
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html, body {
+	max-width: 100%;
+	padding: 0;
+	margin:0;
+}
+
+// ESTILOS
+body {
+	font-family: $font-default;
+	font-size: 10px;
+	color: $color-text;
+	background: url(img/pattern.png) center, url(img/bg.jpg) top left no-repeat;
+	-webkit-font-smoothing: antialiased;
+
+	.wrapper {
+		max-width: 1024px;
+		margin: 0px auto;
+		text-align: center;
+	}
+
+	// TÍTULO
+	h1 {
+		max-width: 380px;
+		margin: 20px auto;
+		padding: 20px 30px;
+		font-size: 2.3em;
+		position: relative;
+		font-weight: 300;
+		border: 1px solid rgba(255,255,255,0.5);
+		@include border-radius(4px);
+
+		&:after {
+			content:"";
+			position: absolute;
+			top:15%;
+			left:-7px;
+			width: 1px;
+			height: 70%;
+			background: rgba(255,255,255,0.5);
+		}
+		&:before {
+			content:"";
+			position: absolute;
+			top:15%;
+			right:-7px;
+			width: 1px;
+			height: 70%;
+			background: rgba(255,255,255,0.5);
+		}
+	}
+
+	// RELÓGIO
+	.clock-content {
+		padding: 18px;
+		display: inline-block;
+		margin: 0px auto;
+		background: $color-accent;
+		overflow: hidden;
+		position: relative;
+		@include transition(all, 0.2s, ease, 0s);
+		@include box-shadow((inset 0px 0px 0px 12px rgba(0,0,0,0.1), 0px 4px 0px rgba(0,0,0,0.4)));
+		@include border-radius(50%);
+		z-index: 50;
+
+		&.hide {
+			visibility: hidden;
+			@include opacity(0);
+			@include transition(all, 0.2s, ease, 0s);
+		}
+
+		&:after {
+			content: "";
+			position: absolute;
+			top: 35%;
+			left: 35%;
+			height: 100%;
+			width: 100%;
+			background: rgba(0,0,0,0.02);
+			@include transform(rotate(45deg));
+			z-index: 90;
+		}
+
+		.clock {
+			$size-num: 21px;
+
+			width: 300px;
+			height: 300px;
+			background: $color-text;
+			position: relative;
+			margin: 0px auto;
+			vertical-align: middle;
+			display: inline-block;
+			color: $color-base;
+			@include box-shadow(inset 0px 8px 0px rgba(0,0,0,0.1));
+			@include border-radius(50%);
+
+			// Ponteiros
+			.engine {
+				display: none;
+
+				> * {
+					border: 1px solid #fff;
+					@include border-radius(10px);
+				}
+
+				.mid {
+					content: " ";
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-top: -10px;
+					margin-left: -10px;
+					background: #fff;
+					border: 4px solid $color-base;
+					z-index: 50;
+					@include border-radius(50%);
+				}
+				.sec {
+					$size-sec: 5px;
+
+					width: $size-sec;
+					background: $color-accent;
+					position: absolute;
+					height: 36%;
+					left: 50%;
+					margin-left: - $size-sec / 2;
+					bottom: 50%;
+					@include transform-origin($size-sec / 2 bottom);
+					z-index: 20;
+				}
+				.min {
+					$size-min: 7px;
+
+					width: $size-min;
+					background: $color-base;
+					position: absolute;
+					height: 34%;
+					left: 50%;
+					margin-left: - $size-min / 2;
+					bottom: 50%;
+					@include transform-origin($size-min / 2 bottom);
+					z-index: 30;
+				}
+				.hour {
+					$size-hour: 10px;
+
+					width: $size-hour;
+					background: $color-base;
+					position: absolute;
+					height: 28%;
+					left: 50%;
+					margin-left: - $size-hour / 2;
+					top: 50%;
+					@include transform-origin($size-hour / 2 top);
+					z-index: 30;
+				}
+			}
+
+			// Números de fundo
+			.numbers {
+				display: none;
+				@include opacity(0.4);
+			}
+			.num {
+				font-weight: 300;
+				font-style: normal;
+				text-align: center;
+				font-size: $size-num;
+				line-height: $size-num;
+				width: $size-num;
+				height: $size-num;
+				position: absolute;
+
+				&-00 {
+					top:$size-num + -5;
+					left:50%;
+					margin-left: - $size-num / 2;
+				}
+				&-03 {
+					right: $size-num + -5;
+					top: 50%;
+					margin-top: - $size-num / 2;
+				}
+				&-06 {
+					bottom: $size-num + -5;
+					left: 50%;
+					margin-left: - $size-num / 2;
+				}
+				&-09 {
+					left: $size-num + -5;
+					top:50%;
+					margin-top: - $size-num / 2;
+				}
+			}
+			.subnumbers1,
+			.subnumbers2 {
+				position: absolute;
+				width: 300px;
+				height: 300px;
+			}
+			.subnumbers1 {
+				@include transform(rotate(30deg));
+
+				> * {
+					@include transform(rotate(-30deg));
+				}
+			}
+			.subnumbers2 {
+				@include transform(rotate(60deg));
+
+				> * {
+					@include transform(rotate(-60deg));
+				}
+
+			}
+		}
+	}
+
+	.clock-hidden {
+		width: 336px;
+		display: table;
+		height: 336px;
+		left: 50%;
+		margin-left: -170px;
+		background: rgba(0,0,0,.2);
+		position: absolute;
+		z-index: 1;
+		@include border-radius(50%);
+
+		span {
+			display: table-cell;
+			vertical-align: middle;
+			font-size: 2em;
+			padding: 60px;
+			font-weight: 300;
+			color: rgba(255,255,255,0.3);
+		}
+	}
+
+	// BOTÃO
+	button {
+		font-family: $font-default;
+		font-size: 1.1rem;
+		color: $color-text;
+		background: $color-accent;
+		padding: 20px 50px 23px 50px;
+		border: none;
+		margin-top: 40px;
+		outline: none;
+		font-weight: 500;
+		text-shadow: 0px 2px 0px rgba(0,0,0,0.1);
+		@include box-shadow(inset 0px -3px 0px rgba(0,0,0,0.25));
+		@include border-radius(3px);
+
+		&:hover {
+			background: #368c87;
+			cursor: pointer;
+		}
+	}
+}
